@@ -1217,6 +1217,9 @@ HTMLWidgets.widget({
     for (i = 0; i < x_coord.length; i++)
     {
 
+     console.log(stage_names);
+      console.log(stage_names[i]['name'])
+
       if (i == 0)
       {
 
@@ -1239,14 +1242,8 @@ HTMLWidgets.widget({
             .attr("style", "color: black; font-weight: bold; font-size: 14px;")
             .text(stage_names[i]['name']);
       }
-      console.log(stage_names[i]['name'])
 
     }
-
-
-
-
-
 
   },
 });
