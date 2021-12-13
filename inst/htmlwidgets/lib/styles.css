@@ -1,0 +1,9 @@
+.info_icon_img
+{
+  background-image: url('icons/info-svgrepo-com.svg');
+  height: 22px;
+  width: 22px;
+  float: left;
+  display: inline-block;
+  vertical-align: middle;
+}

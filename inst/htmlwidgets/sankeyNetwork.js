@@ -32,7 +32,7 @@ HTMLWidgets.widget({
     // convert links and nodes data frames to d3 friendly format
     var links = HTMLWidgets.dataframeToD3(x.links);
     var nodes = HTMLWidgets.dataframeToD3(x.nodes);
-
+    var stage_names = HTMLWidgets.dataframeToD3(x.options.stage_names);
     // margin handling
     //   set our default margin to be 20
     //   will override with x.options.margin if provided
@@ -51,7 +51,7 @@ HTMLWidgets.widget({
     var height = el.getBoundingClientRect().height - margin.top - margin.bottom;
 
     var color = eval(options.colourScale);
-
+    var node_to_zoom = x.options.zoomable_nodes;
     var color_node = function color_node(d) {
       if (d.group) {
         return color(d.group.replace(/ .*/, ""));
@@ -240,7 +240,7 @@ HTMLWidgets.widget({
 
         }
       });
-
+    /*
     const node_to_zoom = [
       "Apples and products",
       "Animals",
@@ -328,17 +328,67 @@ HTMLWidgets.widget({
       "Net Imports Goods",
       "Net Exports Goods",
       "Net Imports Food",
-      "Net Exports Food"
-    ];
+      "Net Exports Food",
+      "Domestic Harvest Supply",
+      'Transformed Food',
+      'Alcoholic Beverages',
+      'Vegetable Oils',
+      'Sugar & Sweeteners',
+      'Alcohol, Non-Food',
+      'Beer',
+      'Beverages, Alcoholic',
+      'Beverages, Fermented',
+      'Wine',
+      'Honey',
+      'Sugar (Raw Equivalent)',
+      'Sugar non-centrifugal',
+      'Sweeteners, Other',
+      'Coconut Oil',
+      'Cottonseed Oil',
+      'Groundnut Oil',
+      'Maize Germ Oil',
+      'Oilcrops Oil, Other',
+      'Olive Oil',
+      'Palm Oil',
+      'Palmkernel Oil',
+      'Rape and Mustard Oil',
+      'Ricebran Oil',
+      'Sesameseed Oil',
+      'Soyabean Oil',
+      'Sunflowerseed Oil',
+      'Milk, whole dried',
+      'Milk, skimmed dried',
+      'Cheese, buffalo milk',
+      'Cheese, sheep milk',
+      'Cheese, goat milk',
+      'Casein',
+      'Ice cream and edible ice',
+      'Milk, products of natural constituents nes',
+      'Milk, skimmed cow',
+      'Milk, reconstituted',
+      'Milk, skimmed buffalo',
+      'Milk, skimmed sheep',
+      'Milk, skimmed goat',
+      'Whey, fresh', 'Whey, dry',
+      'Whey, condensed', 'Milk, whole evaporated',
+      'Milk, skimmed evaporated',
+      'Milk, whole condensed',
+      'Milk, skimmed condensed',
+      'Yoghurt', 'Yoghurt, concentrated or not',
+      'Buttermilk, curdled, acidified milk',
+      'Milk, dry buttermilk',
+      'Cheese, whole cow milk',
+      'Cheese, skimmed cow milk',
+      'Whey, cheese', 'Cheese, processed'
+    ];*/
 
     //Add cursor to nodes with zoom
     d3.select(el)
       .selectAll(".node rect")
-      .filter(function (d) {
-        return node_to_zoom.includes(d.name);
-      })
+      .filter(function(d, i) { return node_to_zoom.indexOf( d.name ) >= 0; })
       .style("cursor", "s-resize")
       .style("stroke-width", "4");
+
 
     const node_to_zoom_without_border = [
       "Net Imports Harvest",
@@ -487,7 +537,7 @@ HTMLWidgets.widget({
     let group_2 = svg.selectAll(".node").filter(function (d) {
       return processNodes.includes(d.name);
     });
-
+    /*
     if (group_2._groups[0].length !== 0) {
       let x_group_2 = group_2._groups[0][0].__data__.x;
 
@@ -498,7 +548,7 @@ HTMLWidgets.widget({
         .attr("x", x_group_2 - 25)
         .attr("style", "color: black; font-weight: bold;")
         .text("Processing Stage");
-    }
+    }*/
 
     //Stage 3
     const animalNodes = ["Animals"];
@@ -525,7 +575,7 @@ HTMLWidgets.widget({
     let group_4 = svg.selectAll(".node").filter(function (d) {
       return goodsNodes.includes(d.name);
     });
-
+    /*
     if (group_4._groups[0].length !== 0) {
       var x_group_4 = group_4._groups[0][0].__data__.x;
 
@@ -536,7 +586,7 @@ HTMLWidgets.widget({
         .attr("x", x_group_4 - 25)
         .attr("style", "color: black; font-weight: bold;")
         .text("Goods Stage");
-    }
+    }*/
 
     const cropNodes = [
       "Cereals",
@@ -605,7 +655,7 @@ HTMLWidgets.widget({
     group_5 = svg.selectAll(".node").filter(function (d) {
       return cropNodes.includes(d.name);
     });
-
+    /*
     if (group_1._groups[0].length !== 0 && group_5._groups[0].length == 0) {
 
       let x_group_1 = group_1._groups[0][0].__data__.x;
@@ -617,7 +667,8 @@ HTMLWidgets.widget({
         .attr("x", x_group_1 - 25)
         .attr("style", "color: black; font-weight: bold;")
         .text("Production Stage");
-    }
+    }*/
+    /*
 
     if (group_5._groups[0].length !== 0) {
       var x_group_5_array = [];
@@ -637,7 +688,7 @@ HTMLWidgets.widget({
             .attr("x", x_group_5_array.sort()[x_group_5_array.length - 1] - 30) // shift along the x-axis
             .attr("style", "color: black; font-weight: bold;")
             .text("Production Stage");
-    }
+    }*/
 
     //Stage 4 - zoom
     const animalZoomNodes = [
@@ -747,7 +798,7 @@ HTMLWidgets.widget({
     group_6 = svg.selectAll(".node").filter(function (d) {
       return animalZoomNodes.includes(d.name);
     });
-
+    /*
     if (group_3._groups[0].length !== 0 && group_6._groups[0].length == 0) {
       var x_group_3 = group_3._groups[0][0].__data__.x;
 
@@ -758,8 +809,8 @@ HTMLWidgets.widget({
         .attr("x", x_group_3 - 25)
         .attr("style", "color: black; font-weight: bold;")
         .text("Animals Stage");
-    }
-
+    }*/
+    /*
     if (group_6._groups[0].length !== 0) {
       var x_group_6_array = [];
 
@@ -779,14 +830,14 @@ HTMLWidgets.widget({
             .attr("x", x_group_6_array.sort()[x_group_6_array.length - 1] - 30) // shift along the x-axis
             .attr("style", "color: black; font-weight: bold;")
             .text("Animals Stage");
-    }
+    }*/
 
     //Change place of Animals node
     function manualLayout() {
       for (j = 0; j < nodes.length; j++) {
         pickNode = d3.selectAll(".node")._groups[0][j];
         d = nodes[j];
-        if (d.name === "Animals") {
+        if (d.name === "Animals" & d.stage != 1*0.8) {
           d3.select(pickNode).attr(
             "transform",
             "translate(" +
@@ -811,7 +862,7 @@ HTMLWidgets.widget({
 
     text.append("tspan")
     .attr("class", "info-circle-trade")
-    .style('font-size', options.fontSize*0.85 + 'px')
+    .style('font-size', options.fontSize*1.2 + 'px')
     .style('font-weight', '900')
     .style("cursor", "pointer")
     .style('fill', '#6380ff')
@@ -835,8 +886,8 @@ HTMLWidgets.widget({
       d3.selectAll(".info-circle-trade").remove();
     }
 
-
-    //Add legend
+    //--------------------------------------------------------------------------
+    // LEGEND
 
     sankey_graph = document.getElementById("append_scale");
 
@@ -871,13 +922,13 @@ HTMLWidgets.widget({
     if (options.units == 'kt')
     {
           scale_text.textContent =
-      "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " kilotons (" + options.units+")";
+      "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " kilotons (" + options.units+") mass" ;
 
     }
     else if (options.units == 't')
     {
        scale_text.textContent =
-      "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " tons (" + options.units+")";
+      "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " tons (" + options.units+") protein";
     }
 
     scale_text.setAttribute("style", "margin: 0px;");
@@ -887,7 +938,7 @@ HTMLWidgets.widget({
     box_zoom_div.setAttribute("id", "zoom_box");
     box_zoom_div.setAttribute(
       "style",
-      "margin-left: 40px; min-width: 40px; height: 25px; border: 5px solid; align-self: flex-end;"
+      "min-width: 40px; height: 25px; border: 5px solid; align-self: flex-end;"
     );
 
     //2.2. Text element
@@ -900,15 +951,39 @@ HTMLWidgets.widget({
 
     let zoom_text = document.createElement("p");
     zoom_text.textContent =
-      "Click on bold field for more detail";
+      "Click on bold for zoom";
     zoom_text.setAttribute("style", "margin: 0px;");
+
+    //2. Mouseover info
+    let info_icon_div = document.createElement("div");
+    info_icon_div.setAttribute("id", "info_icon_legend");
+    info_icon_div.setAttribute(
+      "style",
+      "min-width: 40px; height: 25px; background: grey; align-self: flex-end;"
+    );
+
+    //2.2. Text element
+    let text_info_icon_div = document.createElement("div");
+    text_info_icon_div.setAttribute("id", "info_icon_text");
+    text_info_icon_div.setAttribute(
+      "style",
+      "color: black; padding: 6px 0 7px 0; text-align: center; width: auto; height: 30px; padding: 7px; vertical-align: middle; font-weight: bold; font-size: 14px;"
+    );
+
+    let info_icon_text = document.createElement("p");
+
+    let info_icon = document.createElement("div");
+    info_icon.setAttribute("class", 'info_icon_img');
+
+    info_icon_text.textContent = "More info";
+    //-------------------------------------------------------------
 
     //2. Mouseover info
     let mouseover_zoom_div = document.createElement("div");
     mouseover_zoom_div.setAttribute("id", "mouseover_box");
     mouseover_zoom_div.setAttribute(
       "style",
-      "margin-left: 40px; min-width: 40px; height: 25px; background: grey; align-self: flex-end;"
+      "min-width: 40px; height: 25px; background: grey; align-self: flex-end;"
     );
 
     //2.2. Text element
@@ -930,10 +1005,248 @@ HTMLWidgets.widget({
     sankey_graph.append(tex_scale_div);
     sankey_graph.append(box_zoom_div);
     sankey_graph.append(tex_zoom_div);
+    sankey_graph.append(info_icon);
+    sankey_graph.append(text_info_icon_div);
     sankey_graph.append(mouseover_zoom_div);
     sankey_graph.append(tex_mouseover_div);
     tex_scale_div.append(scale_text);
     tex_zoom_div.append(zoom_text);
+
+    text_info_icon_div.append(info_icon_text);
     tex_mouseover_div.append(mouseover_text);
+
+    const items_list = [
+      "Cereals",
+      "Sugar Crops",
+      "Fruits",
+      "Oilcrops",
+      "Starchy Roots",
+      "Vegetables",
+      "Other",
+      "Barley and products",
+      "Cereals, Other",
+      "Maize and products",
+      "Millet and products",
+      "Oats",
+      "Rice and products",
+      "Rye and products",
+      "Sorghum and products",
+      "Wheat and products",
+      "Apples and products",
+      "Bananas",
+      "Citrus, Other",
+      "Dates",
+      "Fruits, Other",
+      "Grapefruit and products",
+      "Grapes and products (excl wine)",
+      "Lemons, Limes and products",
+      "Oranges, Mandarines",
+      "Pineapples and products",
+      "Plantains",
+      "Coconuts - Incl Copra",
+      "Cottonseed",
+      "Groundnuts",
+      "Oilcrops, Other",
+      "Olives (including preserved)",
+      "Palm kernels",
+      "Rape and Mustardseed",
+      "Sesame seed",
+      "Soyabeans",
+      "Sunflower seed",
+      "Beans",
+      "Peas",
+      "Pulses, Other and products",
+      "Cloves",
+      "Pepper",
+      "Pimento",
+      "Spices, Other",
+      "Cassava and products",
+      "Potatoes and products",
+      "Roots, Other",
+      "Sweet potatoes",
+      "Yams",
+      "Cocoa Beans and products",
+      "Coffee and products",
+      "Tea (including mate)",
+      "Nuts and products",
+      "Onions",
+      "Tomatoes and products",
+      "Vegetables, Other",
+      "Pulses",
+      "Stimulants",
+      "Treenuts",
+      "Spices",
+        "Aquatic Animals, Others",
+      "Aquatic Plants",
+      "Aquatic Products",
+      "Aquatic Products, Other",
+      "Bacon and ham",
+      "Beeswax",
+      "Bovine Meat",
+      "Bovine Meat",
+      "Butter, Ghee",
+      "Cephalopods",
+      "Cheese",
+      "Cream",
+      "Crustaceans",
+      "Dairy",
+      "Demersal Fish",
+      "Eggs",
+      "Fat, buffaloes",
+      "Fat, camels",
+      "Fat, cattle",
+      "Fat, goats",
+      "Fat, liver prepared (foie gras)",
+      "Fat, other animals",
+      "Fat, other camelids",
+      "Fat, pigs",
+      "Fat, poultry",
+      "Fat, sheep",
+      "Fats",
+      "Fish, Seafood",
+      "Freshwater Fish",
+      "Hides, buffalo, fresh",
+      "Hides, cattle, fresh",
+      "Honey",
+      "Liver prep.",
+      "Marine Fish, Other",
+      "Materials",
+      "Materials",
+      "Meat",
+      "Meat",
+      "Meat nes",
+      "Meat nes, preparations",
+      "Meat, ass",
+      "Meat, beef and veal sausages",
+      "Meat, beef, dried, salted, smoked",
+      "Meat, beef, preparations",
+      "Meat, bird nes",
+      "Meat, buffalo",
+      "Meat, camel",
+      "Meat, cattle",
+      "Meat, cattle, boneless (beef & veal)",
+      "Meat, chicken",
+      "Meat, chicken, canned",
+      "Meat, dried nes",
+      "Meat, duck",
+      "Meat, extracts",
+      "Meat, game",
+      "Meat, goat",
+      "Meat, goose and guinea fowl",
+      "Meat, homogenized preparations",
+      "Meat, horse",
+      "Meat, mule",
+      "Meat, Other",
+      "Meat, other rodents",
+      "Meat, pig",
+      "Meat, pig sausages",
+      "Meat, pig, preparations",
+      "Meat, pork",
+      "Meat, rabbit",
+      "Meat, sheep",
+      "Meat, turkey",
+      "Milk",
+      "Milk, whole fresh buffalo",
+      "Milk, whole fresh camel",
+      "Milk, whole fresh cow",
+      "Milk, whole fresh goat",
+      "Milk, whole fresh sheep",
+      "Molluscs, Other",
+      "Mutton & Goat Meat",
+      "Offals nes",
+      "Offals, Edible",
+      "Offals, edible, buffaloes",
+      "Offals, edible, camels",
+      "Offals, edible, cattle",
+      "Offals, edible, goats",
+      "Offals, horses",
+      "Offals, liver chicken",
+      "Offals, liver duck",
+      "Offals, liver geese",
+      "Offals, liver turkeys",
+      "Offals, pigs, edible",
+      "Offals, sheep,edible",
+      "Pelagic Fish",
+      "Pigmeat",
+      "Poultry Meat",
+      "Silk-worm cocoons, reelable",
+      "Skins, goat, fresh",
+      "Skins, sheep, fresh",
+      "Snails, not sea",
+      "Whey",
+      "Wool, greasy",
+      "Yoghurt",
+    ];
+
+
+
+    if (options.region == "World")
+    {
+        const temp = d3.selectAll('.node text')
+          .filter(function(d) {return items_list.includes(d.name) & d.stage == 0;});
+
+            temp.append("tspan")
+    .attr("class", "info-top-producers")
+    .style('font-size', options.fontSize*1.2 + 'px')
+    .style('font-weight', '900')
+    .style("cursor", "pointer")
+    .style('fill', '#6380ff')
+    .attr('dy', -5)
+    .text("\u24D8")
+    .append("title")
+      .append("foreignObject")
+      .append("xhtml:body")
+      .html(function (d) {
+        return (
+          'Click here to see more details'
+        );
+      });
+
+
+    }
+
+    d3.selectAll(".info-top-producers")
+      .on("click",function(d) {Shiny.setInputValue("top_producers", {click:1, node_name:d.name}, {priority: "event"});});
+
+    var x_coord = nodes.map(function(d) {
+        return d.x;});
+
+
+    x_coord = [...new Set(x_coord)].sort();
+
+    for (i = 0; i < x_coord.length; i++)
+    {
+
+      if (i == 0)
+      {
+
+            svg
+            .append("text")
+            .attr("transform", null)
+            .attr("y", -10)
+            .attr("text-anchor", "start")
+            .attr("x", x_coord[i]) // shift along the x-axis
+            .attr("style", "color: black; font-weight: bold; font-size: 14px;")
+            .text(stage_names[i]['name']);
+      }
+      else{
+                     svg
+            .append("text")
+            .attr("transform", null)
+            .attr("y", -10)
+            .attr("text-anchor", "middle")
+            .attr("x", x_coord[i] + options.nodeWidth/2) // shift along the x-axis
+            .attr("style", "color: black; font-weight: bold; font-size: 14px;")
+            .text(stage_names[i]['name']);
+      }
+      console.log(stage_names[i]['name'])
+
+    }
+
+
+
+
+
+
   },
 });

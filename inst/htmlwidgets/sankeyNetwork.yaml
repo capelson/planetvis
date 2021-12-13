@@ -7,3 +7,5 @@ dependencies:
     version: 1.0
     src: "htmlwidgets/lib"
     script: sankey.js
+    stylesheet:
+      - styles.css
