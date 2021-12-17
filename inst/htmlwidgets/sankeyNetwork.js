@@ -231,161 +231,24 @@ HTMLWidgets.widget({
       });
 
 
+
     d3.selectAll('.node rect')
-      .on("click", function (d) {
-        if (node_to_zoom.includes(d.name)) {
+        .on("click", function (d) {
+        if (node_to_zoom.includes(d.name) & d.name != 'Milk') {
           d3.select(this).style("stroke-width", "6");
           Shiny.setInputValue("trade_info", null);
           Shiny.setInputValue("node_zoom", d.name, {priority: "event"});
 
         }
       });
-    /*
-    const node_to_zoom = [
-      "Apples and products",
-      "Animals",
-      "Pigmeat",
-      "Bananas",
-      "Barley and products",
-      "Beans",
-      "Meat",
-      "Bovine Meat",
-      "Cereals",
-      "Citrus, Other",
-      "Coconuts - Incl Copra",
-      "Cropland Production",
-      "Dates",
-      "Fats",
-      "Aquatic Products",
-      "Fish, Seafood",
-      "Fruits",
-      "Fruits, Other",
-      "Grapes and products (excl wine)",
-      "Groundnuts",
-      "Materials",
-      "Lemons, Limes and products",
-      "Maize and products",
-      "Meat, Other",
-      "Poultry Meat",
-      "Mutton & Goat Meat",
-      "Dairy",
-      "Milk, whole fresh camel",
-      "Milk, whole fresh cow",
-      "Milk, whole fresh goat",
-      "Milk, whole fresh sheep",
-      "Millet and products",
-      "Nuts and products",
-      "Oats",
-      "Offals, Edible",
-      "Oilcrops",
-      "Oilcrops, Other",
-      "Olives (including preserved)",
-      "Onions",
-      "Oranges, Mandarines",
-      "Other",
-      "Palm kernels",
-      "Peas",
-      "Pineapples and products",
-      "Plantains",
-      "Potatoes and products",
-      "Pulses",
-      "Pulses, Other and products",
-      "Rape and Mustardseed",
-      "Rice and products",
-      "Sesame seed",
-      "Soyabeans",
-      "Spices",
-      "Spices, Other",
-      "Starchy Roots",
-      "Stimulants",
-      "Sugar Crops",
-      "Sunflower seed",
-      "Tea (including mate)",
-      "Tomatoes and products",
-      "Treenuts",
-      "Vegetables",
-      "Vegetables, Other",
-      "Wheat and products",
-      "Yams",
-      "Aquatic Products, Other",
-      "Coffee and products",
-      "Milk, whole fresh buffalo",
-      "Rye and products",
-      "Cereals, Other",
-      "Cocoa Beans and products",
-      "Grapefruit and products",
-      "Pepper",
-      "Pimento",
-      "Sorghum and products",
-      "Cassava and products",
-      "Sweet potatoes",
-      "Roots, Other",
-      "Cloves",
-      "Net Imports Harvest",
-      "Net Exports Harvest",
-      "Net Imports Primary",
-      "Net Exports Primary",
-      "Net Imports Goods",
-      "Net Exports Goods",
-      "Net Imports Food",
-      "Net Exports Food",
-      "Domestic Harvest Supply",
-      'Transformed Food',
-      'Alcoholic Beverages',
-      'Vegetable Oils',
-      'Sugar & Sweeteners',
-      'Alcohol, Non-Food',
-      'Beer',
-      'Beverages, Alcoholic',
-      'Beverages, Fermented',
-      'Wine',
-      'Honey',
-      'Sugar (Raw Equivalent)',
-      'Sugar non-centrifugal',
-      'Sweeteners, Other',
-      'Coconut Oil',
-      'Cottonseed Oil',
-      'Groundnut Oil',
-      'Maize Germ Oil',
-      'Oilcrops Oil, Other',
-      'Olive Oil',
-      'Palm Oil',
-      'Palmkernel Oil',
-      'Rape and Mustard Oil',
-      'Ricebran Oil',
-      'Sesameseed Oil',
-      'Soyabean Oil',
-      'Sunflowerseed Oil',
-      'Milk, whole dried',
-      'Milk, skimmed dried',
-      'Cheese, buffalo milk',
-      'Cheese, sheep milk',
-      'Cheese, goat milk',
-      'Casein',
-      'Ice cream and edible ice',
-      'Milk, products of natural constituents nes',
-      'Milk, skimmed cow',
-      'Milk, reconstituted',
-      'Milk, skimmed buffalo',
-      'Milk, skimmed sheep',
-      'Milk, skimmed goat',
-      'Whey, fresh', 'Whey, dry',
-      'Whey, condensed', 'Milk, whole evaporated',
-      'Milk, skimmed evaporated',
-      'Milk, whole condensed',
-      'Milk, skimmed condensed',
-      'Yoghurt', 'Yoghurt, concentrated or not',
-      'Buttermilk, curdled, acidified milk',
-      'Milk, dry buttermilk',
-      'Cheese, whole cow milk',
-      'Cheese, skimmed cow milk',
-      'Whey, cheese', 'Cheese, processed'
-    ];*/
+
+
+
 
     //Add cursor to nodes with zoom
     d3.select(el)
       .selectAll(".node rect")
-      .filter(function(d, i) { return node_to_zoom.indexOf( d.name ) >= 0; })
+      .filter(function(d, i) { return node_to_zoom.indexOf(d.name) >= 0 & d.name != 'Milk'; })
       .style("cursor", "s-resize")
       .style("stroke-width", "4");
 
@@ -1217,9 +1080,6 @@ HTMLWidgets.widget({
     for (i = 0; i < x_coord.length; i++)
     {
 
-     console.log(stage_names);
-      console.log(stage_names[i]['name'])
-
       if (i == 0)
       {
 
@@ -1244,6 +1104,8 @@ HTMLWidgets.widget({
       }
 
     }
+
+
 
   },
 });
