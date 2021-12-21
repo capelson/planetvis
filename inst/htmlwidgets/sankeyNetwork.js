@@ -661,39 +661,7 @@ HTMLWidgets.widget({
     group_6 = svg.selectAll(".node").filter(function (d) {
       return animalZoomNodes.includes(d.name);
     });
-    /*
-    if (group_3._groups[0].length !== 0 && group_6._groups[0].length == 0) {
-      var x_group_3 = group_3._groups[0][0].__data__.x;
 
-      svg
-        .append("text")
-        .attr("transform", null)
-        .attr("y", -10)
-        .attr("x", x_group_3 - 25)
-        .attr("style", "color: black; font-weight: bold;")
-        .text("Animals Stage");
-    }*/
-    /*
-    if (group_6._groups[0].length !== 0) {
-      var x_group_6_array = [];
-
-      for (i = 0; i < group_6._groups[0].length; i++) {
-        //check if we already save the x coord
-
-        if (!x_group_6_array.includes(group_6._groups[0][i].__data__.x)) {
-          x_group_6_array.push(group_6._groups[0][i].__data__.x);
-        }
-      }
-
-
-          svg
-            .append("text")
-            .attr("transform", null)
-            .attr("y", -10)
-            .attr("x", x_group_6_array.sort()[x_group_6_array.length - 1] - 30) // shift along the x-axis
-            .attr("style", "color: black; font-weight: bold;")
-            .text("Animals Stage");
-    }*/
 
     //Change place of Animals node
     function manualLayout() {
@@ -1045,12 +1013,12 @@ HTMLWidgets.widget({
 
     if (options.region == "World")
     {
-        const temp = d3.selectAll('.node text')
+        nodes_with_top_prod = d3.selectAll('.node text')
           .filter(function(d) {return items_list.includes(d.name) & d.stage == 0;});
 
-            temp.append("tspan")
-    .attr("class", "info-top-producers")
-    .style('font-size', options.fontSize*1.2 + 'px')
+            nodes_with_top_prod.append("tspan")
+        .attr("class", "info-top-producers")
+          .style('font-size', options.fontSize*1.2 + 'px')
     .style('font-weight', '900')
     .style("cursor", "pointer")
     .style('fill', '#6380ff')
@@ -1065,6 +1033,32 @@ HTMLWidgets.widget({
         );
       });
 
+      let non_zoomable_nodes_with_top_prod = items_list.filter(x => !node_to_zoom.includes(x) &
+      nodes.map(function (d) {return d.name;}).includes(x));
+
+      console.log(node_to_zoom);
+
+      console.log(non_zoomable_nodes_with_top_prod);
+
+              nodes_with_top_prod = d3.selectAll('.node text')
+          .filter(function(d) {return non_zoomable_nodes_with_top_prod.includes(d.name) | d.name == 'Milk' | d.name == 'Buttermilk'});
+
+            nodes_with_top_prod.append("tspan")
+        .attr("class", "info-top-producers")
+          .style('font-size', options.fontSize*1.2 + 'px')
+    .style('font-weight', '900')
+    .style("cursor", "pointer")
+    .style('fill', '#6380ff')
+    .attr('dy', -5)
+    .text("\u24D8")
+    .append("title")
+      .append("foreignObject")
+      .append("xhtml:body")
+      .html(function (d) {
+        return (
+          'Click here to see more details'
+        );
+      });
 
     }
 
