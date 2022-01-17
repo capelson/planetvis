@@ -72,11 +72,29 @@
 #'
 #' @export
 
-sankeyNetwork <- function(Links, Nodes, Source, Target, Value,
-    NodeID, NodeGroup = NodeID, LinkGroup = NULL, units = "",
-    colourScale = JS("d3.scaleOrdinal(d3.schemeCategory20);"), fontSize = 7,
-    fontFamily = NULL, nodeWidth = 15, nodePadding = 10, margin = NULL,
-    height = NULL, width = NULL, iterations = 32, sinksRight = TRUE, region = NULL, zoomable_nodes = NULL, stage_names = NULL)
+sankeyNetwork <- function(Links,
+                          Nodes,
+                          Source,
+                          Target,
+                          Value,
+                          NodeID,
+                          NodeGroup = NodeID,
+                          LinkGroup = NULL,
+                          units = "",
+                          colourScale = JS("d3.scaleOrdinal(d3.schemeCategory20);"),
+                          fontSize = 7,
+                          fontFamily = NULL,
+                          nodeWidth = 15,
+                          nodePadding = 10,
+                          margin = NULL,
+                          height = NULL,
+                          width = NULL,
+                          iterations = 32,
+                          sinksRight = TRUE,
+                          region = NULL,
+                          zoomable_nodes = NULL,
+                          stage_names = NULL,
+                          data_source = NULL)
 {
     check_zero(Links[, Source], Links[, Target])
     colourScale <- as.character(colourScale)
@@ -127,7 +145,8 @@ sankeyNetwork <- function(Links, Nodes, Source, Target, Value,
         colourScale = colourScale, fontSize = fontSize, fontFamily = fontFamily,
         nodeWidth = nodeWidth, nodePadding = nodePadding, units = units,
         margin = margin, iterations = iterations, sinksRight = sinksRight,
-        region = region, zoomable_nodes = zoomable_nodes, stage_names = stage_names)
+        region = region, zoomable_nodes = zoomable_nodes, stage_names = stage_names,
+        data_source = data_source)
 
     # create widget
     htmlwidgets::createWidget(name = "sankeyNetwork", x = list(links = LinksDF,

@@ -4,6 +4,8 @@ HTMLWidgets.widget({
   type: "output",
 
   initialize: function (el, width, height) {
+    d3.select(el).append("div").attr("id", 'append_scale').style("display", "flex").style("align-items", "center");
+
     d3.select(el).append("svg").style("width", "100%").style("height", "100%");
 
     return {
@@ -166,7 +168,7 @@ HTMLWidgets.widget({
           .style("stroke-opacity", function (d) {
             return opacity_link(d) + 0.3;
           });
-        Shiny.setInputValue("node_piechart", d.name, {priority: "event"});
+        Shiny.setInputValue("node_piechart", d.name, { priority: "event" });
       })
       .on("mouseout", function (d) {
         link
@@ -233,37 +235,19 @@ HTMLWidgets.widget({
 
 
     d3.selectAll('.node rect')
-        .on("click", function (d) {
+      .on("click", function (d) {
         if (node_to_zoom.includes(d.name) & d.name != 'Milk') {
           d3.select(this).style("stroke-width", "6");
           Shiny.setInputValue("trade_info", null);
-          Shiny.setInputValue("node_zoom", d.name, {priority: "event"});
+          Shiny.setInputValue("node_zoom", d.name, { priority: "event" });
 
         }
       });
 
-
-
-
     //Add cursor to nodes with zoom
     d3.select(el)
       .selectAll(".node rect")
-      .filter(function(d, i) { return node_to_zoom.indexOf(d.name) >= 0 & d.name != 'Milk'; })
-      .style("cursor", "s-resize")
-      .style("stroke-width", "4");
-
-
-    const node_to_zoom_without_border = [
-      "Net Imports Harvest",
-      "Net Import Primary"
-    ];
-
-    //Add cursor to nodes with zoom
-    d3.select(el)
-      .selectAll(".node rect")
-      .filter(function (d) {
-        return node_to_zoom_without_border.includes(d.name);
-      })
+      .filter(function (d, i) { return node_to_zoom.indexOf(d.name) >= 0 & d.name != 'Milk'; })
       .style("cursor", "s-resize")
       .style("stroke-width", "4");
 
@@ -301,8 +285,8 @@ HTMLWidgets.widget({
               return d.getBoundingClientRect().left;
             })
         ) -
-          s.node().getBoundingClientRect().left -
-          margin.right,
+        s.node().getBoundingClientRect().left -
+        margin.right,
         d3.min(
           s
             .selectAll("g")
@@ -311,8 +295,8 @@ HTMLWidgets.widget({
               return d.getBoundingClientRect().top;
             })
         ) -
-          s.node().getBoundingClientRect().top -
-          margin.top,
+        s.node().getBoundingClientRect().top -
+        margin.top,
         d3.max(
           s
             .selectAll("g")
@@ -321,16 +305,16 @@ HTMLWidgets.widget({
               return d.getBoundingClientRect().right;
             })
         ) -
-          d3.min(
-            s
-              .selectAll("g")
-              .nodes()
-              .map(function (d) {
-                return d.getBoundingClientRect().left;
-              })
-          ) +
-          margin.left +
-          margin.right,
+        d3.min(
+          s
+            .selectAll("g")
+            .nodes()
+            .map(function (d) {
+              return d.getBoundingClientRect().left;
+            })
+        ) +
+        margin.left +
+        margin.right,
         d3.max(
           s
             .selectAll("g")
@@ -339,16 +323,16 @@ HTMLWidgets.widget({
               return d.getBoundingClientRect().bottom;
             })
         ) -
-          d3.min(
-            s
-              .selectAll("g")
-              .nodes()
-              .map(function (d) {
-                return d.getBoundingClientRect().top;
-              })
-          ) +
-          margin.top +
-          margin.bottom,
+        d3.min(
+          s
+            .selectAll("g")
+            .nodes()
+            .map(function (d) {
+              return d.getBoundingClientRect().top;
+            })
+        ) +
+        margin.top +
+        margin.bottom,
       ].join(",")
     );
 
@@ -438,18 +422,6 @@ HTMLWidgets.widget({
     let group_4 = svg.selectAll(".node").filter(function (d) {
       return goodsNodes.includes(d.name);
     });
-    /*
-    if (group_4._groups[0].length !== 0) {
-      var x_group_4 = group_4._groups[0][0].__data__.x;
-
-      svg
-        .append("text")
-        .attr("transform", null)
-        .attr("y", -10)
-        .attr("x", x_group_4 - 25)
-        .attr("style", "color: black; font-weight: bold;")
-        .text("Goods Stage");
-    }*/
 
     const cropNodes = [
       "Cereals",
@@ -518,40 +490,7 @@ HTMLWidgets.widget({
     group_5 = svg.selectAll(".node").filter(function (d) {
       return cropNodes.includes(d.name);
     });
-    /*
-    if (group_1._groups[0].length !== 0 && group_5._groups[0].length == 0) {
 
-      let x_group_1 = group_1._groups[0][0].__data__.x;
-
-      svg
-        .append("text")
-        .attr("transform", null)
-        .attr("y", -10)
-        .attr("x", x_group_1 - 25)
-        .attr("style", "color: black; font-weight: bold;")
-        .text("Production Stage");
-    }*/
-    /*
-
-    if (group_5._groups[0].length !== 0) {
-      var x_group_5_array = [];
-
-      for (i = 0; i < group_5._groups[0].length; i++) {
-        //check if we already save the x coord
-
-        if (!x_group_5_array.includes(group_5._groups[0][i].__data__.x)) {
-          x_group_5_array.push(group_5._groups[0][i].__data__.x);
-        }
-      }
-
-      svg
-            .append("text")
-            .attr("transform", null)
-            .attr("y", -10)
-            .attr("x", x_group_5_array.sort()[x_group_5_array.length - 1] - 30) // shift along the x-axis
-            .attr("style", "color: black; font-weight: bold;")
-            .text("Production Stage");
-    }*/
 
     //Stage 4 - zoom
     const animalZoomNodes = [
@@ -668,14 +607,14 @@ HTMLWidgets.widget({
       for (j = 0; j < nodes.length; j++) {
         pickNode = d3.selectAll(".node")._groups[0][j];
         d = nodes[j];
-        if (d.name === "Animals" & d.stage != 1*0.8) {
+        if (d.name === "Animals" & d.stage != 1 * 0.8 & options.data_source != 'Demo Resources/Outcomes') {
           d3.select(pickNode).attr(
             "transform",
             "translate(" +
-              (d.x = d.x) +
-              "," +
-              (d.y = Math.max(0, Math.min(height - d.dy))) +
-              ")"
+            (d.x = d.x) +
+            "," +
+            (d.y = Math.max(0, Math.min(height - d.dy))) +
+            ")"
           );
         }
       }
@@ -684,36 +623,34 @@ HTMLWidgets.widget({
       link.attr("d", path);
     }
 
-    if (options.units == 'kt')
-    {
-       const circledPlusUnicode = "\u24D8";
+    if (options.units == 'kt') {
+      const circledPlusUnicode = "\u24D8";
 
-    const text = d3.selectAll('.node text')
-    .filter(function(d) {return d.name.includes('Net')});
+      const text = d3.selectAll('.node text')
+        .filter(function (d) { return d.name.includes('Net') });
 
-    text.append("tspan")
-    .attr("class", "info-circle-trade")
-    .style('font-size', options.fontSize*1.2 + 'px')
-    .style('font-weight', '900')
-    .style("cursor", "pointer")
-    .style('fill', '#6380ff')
-    .attr('dy', -5)
-    .text(circledPlusUnicode)
-    .append("title")
-      .append("foreignObject")
-      .append("xhtml:body")
-      .html(function (d) {
-        return (
-          'Click here to see more details'
-        );
-      });
+      text.append("tspan")
+        .attr("class", "info-circle-trade")
+        .style('font-size', options.fontSize * 1.2 + 'px')
+        .style('font-weight', '900')
+        .style("cursor", "pointer")
+        .style('fill', '#6380ff')
+        .attr('dy', -5)
+        .text(circledPlusUnicode)
+        .append("title")
+        .append("foreignObject")
+        .append("xhtml:body")
+        .html(function (d) {
+          return (
+            'Click here to see more details'
+          );
+        });
 
-    d3.selectAll(".info-circle-trade")
-      .on("click",function(d) {Shiny.setInputValue("trade_info", {click:1, node_name:d.name}, {priority: "event"});});
+      d3.selectAll(".info-circle-trade")
+        .on("click", function (d) { Shiny.setInputValue("trade_info", { click: 1, node_name: d.name }, { priority: "event" }); });
     }
 
-    if (options.region == "World")
-    {
+    if (options.region == "World") {
       d3.selectAll(".info-circle-trade").remove();
     }
 
@@ -750,16 +687,14 @@ HTMLWidgets.widget({
     );
 
     let scale_text = document.createElement("p");
-    if (options.units == 'kt')
-    {
-          scale_text.textContent =
-      "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " kilotons (" + options.units+") mass" ;
+    if (options.units == 'kt') {
+      scale_text.textContent =
+        "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " kilotons (" + options.units + ") mass";
 
     }
-    else if (options.units == 't')
-    {
-       scale_text.textContent =
-      "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " tons (" + options.units+") protein";
+    else if (options.units == 't') {
+      scale_text.textContent =
+        "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " tons (" + options.units + ") protein";
     }
 
     scale_text.setAttribute("style", "margin: 0px;");
@@ -907,7 +842,7 @@ HTMLWidgets.widget({
       "Stimulants",
       "Treenuts",
       "Spices",
-        "Aquatic Animals, Others",
+      "Aquatic Animals, Others",
       "Aquatic Plants",
       "Aquatic Products",
       "Aquatic Products, Other",
@@ -1011,95 +946,97 @@ HTMLWidgets.widget({
 
 
 
-    if (options.region == "World")
-    {
-        nodes_with_top_prod = d3.selectAll('.node text')
-          .filter(function(d) {return items_list.includes(d.name) & d.stage == 0;});
+    if (options.region == "World") {
+      nodes_with_top_prod = d3.selectAll('.node text')
+        .filter(function (d) { return items_list.includes(d.name) & d.stage == 0; });
 
-            nodes_with_top_prod.append("tspan")
+      nodes_with_top_prod.append("tspan")
         .attr("class", "info-top-producers")
-          .style('font-size', options.fontSize*1.2 + 'px')
-    .style('font-weight', '900')
-    .style("cursor", "pointer")
-    .style('fill', '#6380ff')
-    .attr('dy', -5)
-    .text("\u24D8")
-    .append("title")
-      .append("foreignObject")
-      .append("xhtml:body")
-      .html(function (d) {
-        return (
-          'Click here to see more details'
-        );
-      });
+        .style('font-size', options.fontSize * 1.2 + 'px')
+        .style('font-weight', '900')
+        .style("cursor", "pointer")
+        .style('fill', '#6380ff')
+        .attr('dy', -5)
+        .text("\u24D8")
+        .append("title")
+        .append("foreignObject")
+        .append("xhtml:body")
+        .html(function (d) {
+          return (
+            'Click here to see more details'
+          );
+        });
 
       let non_zoomable_nodes_with_top_prod = items_list.filter(x => !node_to_zoom.includes(x) &
-      nodes.map(function (d) {return d.name;}).includes(x));
+        nodes.map(function (d) { return d.name; }).includes(x));
 
-      console.log(node_to_zoom);
 
-      console.log(non_zoomable_nodes_with_top_prod);
+      nodes_with_top_prod = d3.selectAll('.node text')
+        .filter(function (d) { return non_zoomable_nodes_with_top_prod.includes(d.name) | d.name == 'Milk' | d.name == 'Buttermilk' });
 
-              nodes_with_top_prod = d3.selectAll('.node text')
-          .filter(function(d) {return non_zoomable_nodes_with_top_prod.includes(d.name) | d.name == 'Milk' | d.name == 'Buttermilk'});
-
-            nodes_with_top_prod.append("tspan")
+      nodes_with_top_prod.append("tspan")
         .attr("class", "info-top-producers")
-          .style('font-size', options.fontSize*1.2 + 'px')
-    .style('font-weight', '900')
-    .style("cursor", "pointer")
-    .style('fill', '#6380ff')
-    .attr('dy', -5)
-    .text("\u24D8")
-    .append("title")
-      .append("foreignObject")
-      .append("xhtml:body")
-      .html(function (d) {
-        return (
-          'Click here to see more details'
-        );
-      });
+        .style('font-size', options.fontSize * 1.2 + 'px')
+        .style('font-weight', '900')
+        .style("cursor", "pointer")
+        .style('fill', '#6380ff')
+        .attr('dy', -5)
+        .text("\u24D8")
+        .append("title")
+        .append("foreignObject")
+        .append("xhtml:body")
+        .html(function (d) {
+          return (
+            'Click here to see more details'
+          );
+        });
 
     }
 
-    d3.selectAll(".info-top-producers")
-      .on("click",function(d) {Shiny.setInputValue("top_producers", {click:1, node_name:d.name}, {priority: "event"});});
+   d3.selectAll(".info-top-producers")
+      .on("click", function (d) { Shiny.setInputValue("top_producers", { click: 1, node_name: d.name }, { priority: "event" }); });
 
-    var x_coord = nodes.map(function(d) {
-        return d.x;});
+    var x_coord = nodes.map(function (d) {
+      return d.x;
+    });
 
-
+    console.log(stage_names);
     x_coord = [...new Set(x_coord)].sort();
 
-    for (i = 0; i < x_coord.length; i++)
-    {
+    for (i = 0; i < x_coord.length; i++) {
 
-      if (i == 0)
-      {
+      if (i == 0) {
 
-            svg
-            .append("text")
-            .attr("transform", null)
-            .attr("y", -10)
-            .attr("text-anchor", "start")
-            .attr("x", x_coord[i]) // shift along the x-axis
-            .attr("style", "color: black; font-weight: bold; font-size: 14px;")
-            .text(stage_names[i]['name']);
+        svg
+          .append("text")
+          .attr("transform", null)
+          .attr("y", -10)
+          .attr("text-anchor", "start")
+          .attr("x", x_coord[i]) // shift along the x-axis
+          .attr("style", "color: black; font-weight: bold; font-size: 14px;")
+          .text(stage_names[i]['name']);
       }
-      else{
-                     svg
-            .append("text")
-            .attr("transform", null)
-            .attr("y", -10)
-            .attr("text-anchor", "middle")
-            .attr("x", x_coord[i] + options.nodeWidth/2) // shift along the x-axis
-            .attr("style", "color: black; font-weight: bold; font-size: 14px;")
-            .text(stage_names[i]['name']);
+      else {
+        svg
+          .append("text")
+          .attr("transform", null)
+          .attr("y", -10)
+          .attr("text-anchor", "middle")
+          .attr("x", x_coord[i] + options.nodeWidth / 2) // shift along the x-axis
+          .attr("style", "color: black; font-weight: bold; font-size: 14px;")
+          .text(stage_names[i]['name']);
       }
 
     }
 
 
 
+     svg
+      .selectAll(".link")
+      .filter(function(d) {return ['Land', 'Water', 'Energy', 'Carbon',
+                'Nutrients', 'Human capital', 'Financial capital', 'Livestock Herd'].includes(d.source.name) |
+                ['Nutrition', 'Livelihoods', 'Climate', 'Biodiversity',
+                'Pollution'].includes(d.target.name);})
+      .remove();
   },
 });

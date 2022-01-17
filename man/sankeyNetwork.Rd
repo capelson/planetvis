@@ -27,7 +27,10 @@ sankeyNetwork(
   height = NULL,
   width = NULL,
   iterations = 32,
-  sinksRight = TRUE
+  sinksRight = TRUE,
+  region = NULL,
+  zoomable_nodes = NULL,
+  stage_names = NULL
 )
 }
 \arguments{
