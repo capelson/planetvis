@@ -35,6 +35,7 @@ HTMLWidgets.widget({
     var links = HTMLWidgets.dataframeToD3(x.links);
     var nodes = HTMLWidgets.dataframeToD3(x.nodes);
     var stage_names = HTMLWidgets.dataframeToD3(x.options.stage_names);
+    var items_list = options.top_producers_items
     // margin handling
     //   set our default margin to be 20
     //   will override with x.options.margin if provided
@@ -335,7 +336,7 @@ HTMLWidgets.widget({
         margin.bottom,
       ].join(",")
     );
-
+    /*
     d3.select(el)
       .selectAll(".node rect")
       .filter(function (d, i) {
@@ -384,7 +385,7 @@ HTMLWidgets.widget({
     let group_2 = svg.selectAll(".node").filter(function (d) {
       return processNodes.includes(d.name);
     });
-    /*
+
     if (group_2._groups[0].length !== 0) {
       let x_group_2 = group_2._groups[0][0].__data__.x;
 
@@ -395,7 +396,7 @@ HTMLWidgets.widget({
         .attr("x", x_group_2 - 25)
         .attr("style", "color: black; font-weight: bold;")
         .text("Processing Stage");
-    }*/
+    }
 
     //Stage 3
     const animalNodes = ["Animals"];
@@ -600,7 +601,7 @@ HTMLWidgets.widget({
     group_6 = svg.selectAll(".node").filter(function (d) {
       return animalZoomNodes.includes(d.name);
     });
-
+    */
 
     //Change place of Animals node
     function manualLayout() {
@@ -781,7 +782,7 @@ HTMLWidgets.widget({
     text_info_icon_div.append(info_icon_text);
     tex_mouseover_div.append(mouseover_text);
 
-    const items_list = [
+    /*const items_list = [
       "Cereals",
       "Sugar Crops",
       "Fruits",
@@ -942,7 +943,14 @@ HTMLWidgets.widget({
       "Whey",
       "Wool, greasy",
       "Yoghurt",
-    ];
+      'Cattle',
+      'Pigs',
+      'Poultry',
+      'Other Species',
+      'Sheep',
+      'Goats',
+      'Buffaloes'
+    ];*/
 
 
 
@@ -1000,7 +1008,7 @@ HTMLWidgets.widget({
       return d.x;
     });
 
-    console.log(stage_names);
+
     x_coord = [...new Set(x_coord)].sort();
 
     for (i = 0; i < x_coord.length; i++) {

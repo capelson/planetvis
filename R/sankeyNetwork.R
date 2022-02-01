@@ -94,7 +94,8 @@ sankeyNetwork <- function(Links,
                           region = NULL,
                           zoomable_nodes = NULL,
                           stage_names = NULL,
-                          data_source = NULL)
+                          data_source = NULL,
+                          top_producers_items)
 {
     check_zero(Links[, Source], Links[, Target])
     colourScale <- as.character(colourScale)
@@ -146,7 +147,7 @@ sankeyNetwork <- function(Links,
         nodeWidth = nodeWidth, nodePadding = nodePadding, units = units,
         margin = margin, iterations = iterations, sinksRight = sinksRight,
         region = region, zoomable_nodes = zoomable_nodes, stage_names = stage_names,
-        data_source = data_source)
+        data_source = data_source, top_producers_items = top_producers_items)
 
     # create widget
     htmlwidgets::createWidget(name = "sankeyNetwork", x = list(links = LinksDF,
