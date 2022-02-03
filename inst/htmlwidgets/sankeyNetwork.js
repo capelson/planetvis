@@ -624,7 +624,7 @@ HTMLWidgets.widget({
       link.attr("d", path);
     }
 
-    if (options.units == 'kt') {
+    if (options.units == 'kt' & options.data_source != 'Demo Resources/Outcomes') {
       const circledPlusUnicode = "\u24D8";
 
       const text = d3.selectAll('.node text')
