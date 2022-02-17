@@ -690,12 +690,12 @@ HTMLWidgets.widget({
     let scale_text = document.createElement("p");
     if (options.units == 'kt') {
       scale_text.textContent =
-        "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " kilotons (" + options.units + ") mass";
+        "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " kilotons (" + options.units + ") mass pa";
 
     }
     else if (options.units == 't') {
       scale_text.textContent =
-        "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " tons (" + options.units + ") protein";
+        "25 px ~  " + "\n" + format(scale_value.toFixed(0)) + " tons (" + options.units + ") protein pa";
     }
 
     scale_text.setAttribute("style", "margin: 0px;");
