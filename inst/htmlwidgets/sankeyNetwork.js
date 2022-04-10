@@ -605,18 +605,24 @@ HTMLWidgets.widget({
 
     //Change place of Animals node
     function manualLayout() {
+      padding = 0;
       for (j = 0; j < nodes.length; j++) {
         pickNode = d3.selectAll(".node")._groups[0][j];
         d = nodes[j];
-        if (d.name === "Animals" & d.stage != 1 * 0.8 & options.data_source != 'Demo Resources/Outcomes') {
+
+        if ((d.name === "Animals" & d.stage != 1 * 0.8 & options.data_source != 'Demo Resources/Outcomes') |
+        (['Cattle', 'Pigs', 'Goat', 'Sheep', 'Poultry', 'Buffaloes', 'Other Species', 'Dairy', 'Meat', 'Eggs', 'Fats', 'Materials'].includes(d.name) & d.stage == 2*0.8)){
+
           d3.select(pickNode).attr(
             "transform",
             "translate(" +
             (d.x = d.x) +
             "," +
-            (d.y = Math.max(0, Math.min(height - d.dy))) +
+            (d.y = Math.max(0, Math.min(height - d.dy - padding))) +
             ")"
           );
+          padding = padding + options.nodePadding + d.dy;
+
         }
       }
 
