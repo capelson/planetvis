@@ -345,8 +345,8 @@ HTMLWidgets.widget({
         pickNode = d3.selectAll(".node")._groups[0][j];
         d = nodes[j];
 
-        if ((d.name === "Animals" & d.stage != 1 * 0.8 & options.data_source != 'Demo Resources/Outcomes') |
-        (['Cattle', 'Pigs', 'Goat', 'Sheep', 'Poultry', 'Buffaloes', 'Other Species', 'Dairy', 'Meat', 'Eggs', 'Fats', 'Materials'].includes(d.name))){
+        if ((d.name === "Animals" & d.stage != 0 & options.data_source != 'Demo Resources/Outcomes') |
+        (['Cattle', 'Pigs', 'Goat', 'Sheep', 'Poultry', 'Buffaloes', 'Other Species', 'Dairy', 'Meat', 'Eggs', 'Fats', 'Materials', 'Fifth-quarter', 'Honey', 'Aquatic Products'].includes(d.name))){
 
           d3.select(pickNode).attr(
             "transform",
