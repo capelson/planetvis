@@ -369,8 +369,8 @@ HTMLWidgets.widget({
       const circledPlusUnicode = "\u24D8";
 
       const text = d3.selectAll('.node text')
-        .filter(function (d) { return d.name.includes('Net') });
-
+        .filter(function (d) { return ['Imports Harvest', 'Exports Harvest', 'Imports Goods', 'Exports Goods', 'Imports Food', 'Exports Food', 'Imports Primary', 'Exports Primary', 'Imports Animals', 'Exports Animals'].includes(d.name) });
+      console.log(text)
       text.append("tspan")
         .attr("class", "info-circle-trade")
         .style('font-size', options.fontSize * 1.2 + 'px')
@@ -572,8 +572,9 @@ HTMLWidgets.widget({
 
    d3.selectAll(".info-top-producers")
       .on("click", function (d) { Shiny.setInputValue("top_producers", { click: 1, node_name: d.name }, { priority: "event" }); });
-
-    var x_coord = nodes.map(function (d) {
+    if (stage_names.length > 0)
+    {
+      var x_coord = nodes.map(function (d) {
       return d.x;
     });
 
@@ -606,7 +607,7 @@ HTMLWidgets.widget({
 
     }
 
-
+    }
 
      svg
       .selectAll(".link")
