@@ -346,7 +346,7 @@ HTMLWidgets.widget({
         d = nodes[j];
 
         if ((d.name === "Animals" & d.stage != 0 & options.data_source != 'Demo Resources/Outcomes') |
-        (['Cattle', 'Pigs', 'Goat', 'Sheep', 'Poultry', 'Buffaloes', 'Other Species', 'Dairy', 'Meat', 'Eggs', 'Fats', 'Materials', 'Fifth-quarter', 'Honey', 'Aquatic Products'].includes(d.name))){
+        (['Cattle', 'Pigs', 'Goat', 'Sheep', 'Poultry', 'Buffaloes', 'Other Species', 'Dairy', 'Meat', 'Eggs', 'Fats', 'Materials', 'Fifth-quarter', 'Honey', 'Aquatic Products'].map(i => i + ' Inflows').includes(d.name))){
 
           d3.select(pickNode).attr(
             "transform",
@@ -370,7 +370,7 @@ HTMLWidgets.widget({
 
       const text = d3.selectAll('.node text')
         .filter(function (d) { return ['Imports Harvest', 'Exports Harvest', 'Imports Goods', 'Exports Goods', 'Imports Food', 'Exports Food', 'Imports Primary', 'Exports Primary', 'Imports Animals', 'Exports Animals'].includes(d.name) });
-      console.log(text)
+
       text.append("tspan")
         .attr("class", "info-circle-trade")
         .style('font-size', options.fontSize * 1.2 + 'px')
@@ -391,6 +391,30 @@ HTMLWidgets.widget({
       d3.selectAll(".info-circle-trade")
         .on("click", function (d) { Shiny.setInputValue("trade_info", { click: 1, node_name: d.name }, { priority: "event" }); });
     }
+
+    // Add inform button for pulp
+     const pulp = d3.selectAll('.node text')
+        .filter(function (d) { return ['Pulp'].includes(d.name) });
+
+      pulp.append("tspan")
+        .attr("class", "info-circle-pulp")
+        .style('font-size', options.fontSize * 1.2 + 'px')
+        .style('font-weight', '900')
+        .style("cursor", "pointer")
+        .style('fill', '#6380ff')
+        .attr('dy', -5)
+        .text("\u24D8")
+        .append("title")
+        .append("foreignObject")
+        .append("xhtml:body")
+        .html(function (d) {
+          return (
+            'Click here to see more details'
+          );
+        });
+
+      d3.selectAll(".info-circle-pulp")
+        .on("click", function (d) { Shiny.setInputValue("pulp_info", { click: 1, node_name: d.name }, { priority: "event" }); });
 
     if (options.region == "World") {
       d3.selectAll(".info-circle-trade").remove();
